@@ -1,0 +1,39 @@
+##a-begin##
+ama amav
+laud laudav
+ambula ambulav
+dica dicav
+
+##a-end##
+
+##e-begin##
+mone monu
+
+##e-end##
+
+##cons-begin##
+leg leg lesen las gelesen
+nub nups
+duc dux fuehren fuehrte gefuehrt
+dic dix
+mitt mis
+
+##cons-end##
+
+##i-begin##
+audi audiv
+
+##i-end##
+
+##fifth-begin##
+fac fec
+cap cep
+
+##fifth-end
+
+
+
+
+
+
+
