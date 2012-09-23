@@ -1,23 +1,17 @@
 #Verbenerkennung
 def input
   print "\nGib ein Verb ein! \n \n"
-  verb = gets.downcase.strip                   #input
-  
-  if verb == "quit"
-    return false
-  end
- end
+  gets.downcase.strip                   #input
+end
 
-verb = input 
-print verb
 
 def define_verb (verb)
     endings = [
              [ "o#{/$/}",              #act endings[0] $ = \b
-               "s#{/\b/}",
-               "#{/[^n]/}t#{/\b/}",    #alles außer n davor?
+               "#{/(?<=[^rt][aei])/}s#{/\b/}", # does not match mittis! r-stems?
+               "#{/(?<=[aei])/}t#{/\b/}",    #alles außer n davor?
                "mus#{/\b/}",
-               "#{/[aei]/}tis#{/\b/}", #s-problem!!!!
+               "#{/(?<=[aei])/}tis#{/\b/}", #s-problem!!!!
                "nt#{/\b/}",
                "re#{/\b/}"
               ],
@@ -25,14 +19,14 @@ def define_verb (verb)
              [ "#{/[aeu]/}m#{/\b/}"              #2nd: 1.P. act endings[1]
               ],
              
-             [ "#{/[aeo]/}r#{/\b/}",             #passiv endings[2]
-               "ris#{/\b/}",
-               "#{/[^n]/}tur#{/\b/}",
+             [ "#{/(?<=[aeo])/}r#{/\b/}",             #passiv endings[2]
+               "#{/(?<=[aei])/}ris#{/\b/}",
+               "#{/(?<=[aei])/}tur#{/\b/}",
                "mur#{/\b/}",
                "mini#{/\b/}",
                "ntur#{/\b/}",
                "ri#{/\b/}",
-               "#{/[^n]/}i#{/\b/}"                #alles außer n-vor i. gibt es einen n-stamm?
+               "#{/(?<=[a-mo-z])/}i#{/\b/}"                #alles außer n-vor i. gibt es einen n-stamm?
               ]
             ]  
   
@@ -117,7 +111,8 @@ def define_verb (verb)
     end  
   end
   modus = modus pers_numerus, verb, forms, ending
-  #print ending
+  print "#{stem} \n"
+  print ending
   #print "#{forms[1]}a#{ending}"
 
   
@@ -126,7 +121,7 @@ def define_verb (verb)
       tempus = "Imperfekt"
     elsif verb.match(/b[oiu]#{ending}/) 
       tempus = "Futur"
-    elsif verb.match(/.e#{ending}\b/) #kons., i-, misch. 2-6pers
+    elsif verb.match(/e#{ending}\b/) #kons., i-, misch. 2-6pers
       tempus = "Futur"
     elsif verb =~ /#{forms[1]}a[mr]/ 
       tempus = "Futur"   #i = 0: 1st-pers    
@@ -141,10 +136,26 @@ def define_verb (verb)
   end
   genus = genus j
   
+
+  
   
   print "#{pers_numerus} #{modus} #{tempus} #{genus}, #{konjugation} \n" #output
 
 end
 
-while input 
+if __FILE__ == $PROGRAM_NAME
+#  verb = input 
+#  print verb
+  verb = "" 
+  @looper = true
+  while  
+    verb = input
+    if verb == "quit"
+      break
+    else
+    define_verb(verb) 
+    end
+
+  end
 end
+
